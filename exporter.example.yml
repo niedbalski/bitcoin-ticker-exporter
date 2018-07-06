@@ -1,0 +1,17 @@
+exchanges:
+
+  - name: kraken
+    markets:
+      - name: "btc_usd"
+        code: "XBTUSD"
+    api:
+      key: "xxx"
+      secret: "xxx"
+
+  - name: buda
+    markets:
+      - name: "btc_clp"
+        code: "btc-clp"
+    api:
+      key: "xxx"
+      secret: "xxx"

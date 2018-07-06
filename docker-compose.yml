@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  bitcoin-ticker-exporter:
+    hostname: bitcoin-ticker-exporter
+    build:
+      context: .
+      dockerfile: ./docker/bitcoin-ticker-exporter.DockerFile
+    container_name: bitcoin-ticker-exporter
+    volumes:
+      - ./docker/config:/prometheus
+      - ./docker/data/prometheus:/data
+    command: "--exchange kraken --exchange buda --config /prometheus/exporter.yml"
+    ports:
+      - 9180:9180
+    restart: always
+
+  prometheus:
+    hostname: prometheus
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./docker/data/prometheus:/data
+      - ./docker/config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    links:
+      - "bitcoin-ticker-exporter:exporter"
+    depends_on:
+      - bitcoin-ticker-exporter
+    restart: always
