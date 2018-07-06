@@ -16,6 +16,7 @@ services:
     restart: always
 
   prometheus:
+
     hostname: prometheus
     container_name: prometheus
     image: prom/prometheus
