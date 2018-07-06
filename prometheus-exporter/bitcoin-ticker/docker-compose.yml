@@ -1,0 +1,21 @@
+version: '3.3'
+
+services:
+  bitcoin-ticker-exporter:
+    build:
+      context: .
+    volumes:
+      - ./docker/config/exporter.yml:/exporter.yml
+    command: --exchange kraken --exchange buda --config /exporter.yml
+    ports:
+      - 9180:9180
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./docker/data/prometheus:/data
+      - ./docker/config/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
