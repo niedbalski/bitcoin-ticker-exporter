@@ -2,6 +2,7 @@ version: '3.3'
 
 services:
   bitcoin-ticker-exporter:
+    image: us.gcr.io/lincl-206618/bitcoin-ticker-exporter
     build:
       context: .
     volumes:
@@ -13,9 +14,12 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./docker/data/prometheus:/data
+      - prometheus-data:/data
       - ./docker/config/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+
+volumes:
+  prometheus-data:
