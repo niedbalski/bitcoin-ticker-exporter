@@ -2,7 +2,6 @@ package main
 
 import
 (
-	"github.com/niedbalski/bitcoin-ticker-exporter/config"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"gopkg.in/op/go-logging.v1"
 	"strings"
@@ -10,7 +9,6 @@ import
 	"net/http"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/log"
-	"github.com/niedbalski/bitcoin-ticker-exporter/exporters"
 )
 
 type Logger interface {
@@ -53,12 +51,12 @@ func main()() {
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
 
-	settings, err := config.NewConfigFromYAML(*configFile)
+	settings, err := NewConfigFromYAML(*configFile)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	exporter, err := exporters.NewExporter(settings)
+	exporter, err := NewExporter(settings)
 
 	if err != nil {
 		fmt.Println("Error", exchanges, bind)

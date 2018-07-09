@@ -1,0 +1,10 @@
+groups:
+  - name: kraken
+    rules:
+        - alert: bid price greater than 1000 usd
+          expr: kraken_btc_usd_bid > 1000
+          for: 10s
+          labels:
+            exchange: kraken
+          annotations:
+            summary: "kraken_btc_usd_bid {{ $value }}, > 1000"

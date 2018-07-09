@@ -1,8 +1,7 @@
-package exporters
+package main
 
 import (
 	"github.com/niedbalski/bitcoin-ticker-exporter/exchanges"
-	"github.com/niedbalski/bitcoin-ticker-exporter/config"
 	"github.com/prometheus/client_golang/prometheus"
 	"fmt"
 	"strings"
@@ -41,7 +40,7 @@ func (exporter *Exporter) Collect(ch chan<- prometheus.Metric) {
 	}
 }
 
-func NewExporter(config *config.Config) (*Exporter, error) {
+func NewExporter(config *Config) (*Exporter, error) {
 	var exporter = Exporter{}
 
 	for _, exchangeConfig := range config.Exchanges {
