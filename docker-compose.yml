@@ -1,6 +1,7 @@
 version: '3.3'
 
 services:
+
   bitcoin-ticker-exporter:
     image: us.gcr.io/lincl-206618/bitcoin-ticker-exporter
     build:
@@ -16,10 +17,26 @@ services:
     volumes:
       - prometheus-data:/data
       - ./docker/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker/config/bitcoin.rules.example:/etc/prometheus/bitcoin.rules
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+
+  pubsub:
+    image: niedbalski/alertmanager-to-zmq:latest
+    ports:
+      - 9098:9098 #HTTP
+      - 5563:5563 #ZMQ
+
+  alertmanager:
+    image: prom/alertmanager
+    volumes:
+      - ./docker/config/alertmanager.yml:/etc/prometheus/alertmanager.yml
+    command:
+      - --config.file=/etc/prometheus/alertmanager.yml
+    ports:
+      - 9093:9093
 
 volumes:
   prometheus-data:
