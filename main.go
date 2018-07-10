@@ -69,7 +69,7 @@ func main()() {
 	http.Handle(*metrics, prometheus.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
-             <head><title>Memcached Exporter</title></head>
+             <head><title>Bitcoin Ticker Exporter</title></head>
              <body>
              <h1>Bitcoin Exporter</h1>
              <p><a href='` + *metrics + `'>Metrics</a></p>

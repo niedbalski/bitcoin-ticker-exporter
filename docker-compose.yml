@@ -12,6 +12,14 @@ services:
     ports:
       - 9180:9180
 
+  currency-exporter:
+    image: niedbalski/currency-exporter:latest
+    command: --apikey ${APILAYER_KEY}
+    environment:
+      - APILAYER_KEY
+    ports:
+      - 9181:9181
+
   prometheus:
     image: prom/prometheus
     volumes:

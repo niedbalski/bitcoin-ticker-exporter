@@ -14,11 +14,19 @@ rule_files:
 #    region: xxx
 
 scrape_configs:
+
   - job_name: bitcoin-ticker-exporter
     scrape_interval: 5s
     scrape_timeout: 5s
     static_configs:
       - targets: ["bitcoin-ticker-exporter:9180"]
+
+  - job_name: currency-exporter
+    scrape_interval: 1m
+    scrape_timeout: 10s
+    static_configs:
+      - targets: ["currency-exporter:9181"]
+
 
 alerting:
   alertmanagers:
